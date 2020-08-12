@@ -15,7 +15,7 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->string('titile');
+            $table->string('title');
             $table->string('slug');
             $table->text('body');
             $table->integer('category_id')->unsigned();
@@ -31,6 +31,6 @@ class CreateQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('queestions');
+        Schema::dropIfExists('questions');
     }
 }

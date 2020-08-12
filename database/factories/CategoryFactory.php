@@ -4,9 +4,15 @@
 
 use App\Category;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
+use App\Question;
 
 $factory->define(Category::class, function (Faker $faker) {
+	
+	$word = $faker->word;
+
     return [
-        //
+		'name' => $word,
+		'slug' =>str::slug($word)        
     ];
 });

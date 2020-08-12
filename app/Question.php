@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\User;
-use App\Reply;
-use App\Category;
-
-class Queestion extends Model
+class Question extends Model
 {
     //
+    protected $gaurded = [];
+
+    public function getRouteKeyName(){
+        return 'slug';
+    }
 
     public function user(){
     	return $this->belongsTo(User::class);
@@ -23,5 +24,9 @@ class Queestion extends Model
     public function category(){
 
     	return $this->belongsTo(Category::class);
+    }
+
+    public function getPathAttribute(){
+        return asset("api/question/$this->slug");
     }
 }

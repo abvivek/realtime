@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+// namespace App\Http\Resources;
 
-use App\Queestion;
+use App\Question;
 use Illuminate\Http\Request;
+use App\Http\Resources\QuestionResource;
 
-class QueestionController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class QueestionController extends Controller
      */
     public function index()
     {
-        //
+        return QuestionResource::collection(Question::latest()->get());
     }
 
     /**
@@ -36,6 +38,10 @@ class QueestionController extends Controller
     public function store(Request $request)
     {
         //
+        // auth()->user()->question()->create($request->all());
+
+        Question::create($request->all());
+        return response('Created', Response::HTTP_CREATED);
     }
 
     /**
@@ -44,9 +50,9 @@ class QueestionController extends Controller
      * @param  \App\Queestion  $queestion
      * @return \Illuminate\Http\Response
      */
-    public function show(Queestion $queestion)
+    public function show(Question $question)
     {
-        //
+        return new QuestionResource($question);
     }
 
     /**
@@ -55,7 +61,7 @@ class QueestionController extends Controller
      * @param  \App\Queestion  $queestion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Queestion $queestion)
+    public function edit(Question $question)
     {
         //
     }
@@ -67,7 +73,7 @@ class QueestionController extends Controller
      * @param  \App\Queestion  $queestion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Queestion $queestion)
+    public function update(Request $request, Question $question)
     {
         //
     }
@@ -78,8 +84,9 @@ class QueestionController extends Controller
      * @param  \App\Queestion  $queestion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Queestion $queestion)
+    public function destroy(Question $question)
     {
-        //
+        $question->delete();
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
